@@ -336,7 +336,9 @@ static NSDate *g_fetchedAppSettingsTimestamp = nil;
     Class ASIdentifierManagerClass = [FBDynamicFrameworkLoader loadClass:@"ASIdentifierManager" withFramework:@"AdSupport"];
     if ([ASIdentifierManagerClass class]) {
         ASIdentifierManager *manager = [ASIdentifierManagerClass sharedManager];
-        advertiserID = [[manager advertisingIdentifier] UUIDString];
+        if ( [manager isAdvertisingTrackingEnabled] ) {
+            advertiserID = [[manager advertisingIdentifier] UUIDString];
+        }
     }
     return advertiserID;
 }
